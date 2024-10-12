@@ -1,0 +1,78 @@
+import discord
+from discord.ext import commands
+import os, random
+import requests
+from PIL import Image
+import time
+
+intents = discord.Intents.default()
+intents.message_content = True
+
+bot = commands.Bot(command_prefix='/', intents=intents)
+
+@bot.event
+async def on_ready():
+    print(f'Zalogowałeś się jako {bot.user}')
+
+@bot.command()
+async def co_sie_wrzuca_do_kosza_zoltego(ctx):
+    await ctx.send("Do zółtego kosza wrzuca się plastik oraz metal")
+
+@bot.command()
+async def co_sie_wrzuca_do_kosza_zielonego(ctx):
+    await ctx.send("Do zielonego kosza wrzuca się szklo")
+
+@bot.command()
+async def co_sie_wrzuca_do_kosza_niebieskiego(ctx):
+    await ctx.send("Do niebieskiego kosza wrzuca się papier")
+
+@bot.command()
+async def do_jakiego_kosza_wrzuca_sie_metal_i_plastik(ctx):
+    
+    image = Image.open("images/zoltykosz.jpg")
+
+    image.save("output_image.jpg")
+
+    with open("output_image.jpg", "rb") as f:
+        picture = discord.File(f)
+        await ctx.send(file=picture)
+        await ctx.send("Metal i plastik wrzuca sie żółtego kosza kosza")
+
+
+@bot.command()
+async def do_jakiego_kosza_wrzuca_sie_szklo(ctx):
+    
+    image1 = Image.open("images/zielonykosz.jpg")
+
+    image1.save("output1_image.jpg")
+
+    with open("output1_image.jpg", "rb") as h:
+        picture1 = discord.File(h)
+        await ctx.send(file=picture1)
+        await ctx.send("Szklo wrzuca sie do zielonego kosza")
+
+@bot.command()
+async def do_jakiego_kosza_wrzuca_sie_papier(ctx):
+    
+    image2 = Image.open("images/niebieskikkosz.jpg")
+
+    image2.save("output2_image.jpg")
+
+    with open("output2_image.jpg", "rb") as g:
+        picture2 = discord.File(g)
+        await ctx.send(file=picture2)
+        await ctx.send("Papier wrzuca sie do niebieskiego kosza")
+
+@bot.command()
+async def stan_zanieczyszczenia_w_nowym_yorku(ctx):
+    await ctx.send("37 AQI. Jakość powietrza jest akceptowalna dla większości osób. Jednak osoby wrażliwe mogą odczuwać niewielkie lub umiarkowane objawy po dłuższym przebywaniu na zewnątrz.")
+
+@bot.command()
+async def stan_zanieczyszczenia_w_warszawie(ctx):
+    await ctx.send("74 AQI. Powietrze osiągnęło wysoki poziom zanieczyszczenia i jest niezdrowe dla osób wrażliwych. Jeśli odczuwasz takie objawy jak trudności w oddychaniu czy drapanie w gardle, skróć przebywanie na zewnątrz.")
+
+@bot.command()
+async def stan_zanieczyszczenia_w_lodzi(ctx):
+    await ctx.send("51 AQI. Powietrze osiągnęło wysoki poziom zanieczyszczenia i jest niezdrowe dla osób wrażliwych. Jeśli odczuwasz takie objawy jak trudności w oddychaniu czy drapanie w gardle, skróć przebywanie na zewnątrz.")
+
+bot.run("TWOJ TOEK TUTAJ")
